@@ -370,6 +370,21 @@ public:
   void enableFrameLocking(bool enable = true);
 
   /**
+   * \brief Explicitly clear the internal markers cache.
+   */
+  void clearCache();
+
+  /**
+   * \brief Explicitly state if cached markers should be cleared on trigger() or not.
+   */
+  void keepCache(const bool keep_cache);
+
+  /**
+   * \brief
+   */
+  bool isKeepingCache() const noexcept;
+
+  /**
    * \brief Trigger the publish function to send out all collected markers IF there are at leats
    *        queueSize number of markers ready to be published.
 a   *        Warning: when using this in a loop be sure to call trigger() at end of loop
@@ -1098,6 +1113,8 @@ protected:
   bool frame_locking_enabled_ = false;
   double alpha_ = 1.0;         // opacity of all markers
   double global_scale_ = 1.0;  // allow all markers to be increased by a constanct factor
+
+  bool clear_cache_ = false; // whether to clear the cached markers on trigger or not
 
   // Cached Rviz Marker Array
   visualization_msgs::MarkerArray markers_;

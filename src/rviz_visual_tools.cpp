@@ -852,6 +852,21 @@ void RvizVisualTools::enableFrameLocking(bool enable)
   frame_locking_enabled_ = enable;
 }
 
+void RvizVisualTools::clearCache()
+{
+  markers_.markers.clear();  // remove all cached markers
+}
+
+void RvizVisualTools::keepCache(const bool keep_cache)
+{
+  clear_cache_ = !keep_cache;
+}
+
+bool RvizVisualTools::isKeepingCache() const noexcept
+{
+  return !clear_cache_;
+}
+
 bool RvizVisualTools::triggerEvery(std::size_t queueSize)
 {
   if (markers_.markers.size() >= queueSize || queueSize == 0)
@@ -875,7 +890,9 @@ bool RvizVisualTools::trigger()
 
   bool result = publishMarkers(markers_);
 
-  markers_.markers.clear();  // remove all cached markers
+  if (clear_cache_)
+    clearCache();
+
   return result;
 }
 
