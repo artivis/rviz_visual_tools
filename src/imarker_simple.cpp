@@ -42,8 +42,9 @@
 
 namespace rviz_visual_tools
 {
-IMarkerSimple::IMarkerSimple(const std::string& name, double scale, const geometry_msgs::Pose& initial_pose)
-  : nh_("~"), latest_pose_(initial_pose)
+IMarkerSimple::IMarkerSimple(const std::string& name, double scale, const geometry_msgs::Pose& initial_pose,
+                             const std::string& frame)
+  : frame_(frame), nh_("~"), latest_pose_(initial_pose)
 {
   // Create Marker Server
   const std::string imarker_topic = nh_.getNamespace() + "/" + name;
@@ -101,7 +102,7 @@ void IMarkerSimple::make6DofMarker(const geometry_msgs::Pose& pose, double scale
 {
   ROS_INFO_STREAM_NAMED(name_, "Making 6dof interactive marker named " << name_);
 
-  int_marker_.header.frame_id = "world";
+  int_marker_.header.frame_id = frame_;
   int_marker_.pose = pose;
   int_marker_.scale = scale;
 

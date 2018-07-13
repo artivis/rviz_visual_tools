@@ -74,7 +74,8 @@ class IMarkerSimple
 {
 public:
   explicit IMarkerSimple(const std::string& name = "imarker", double scale = 0.2,
-                         const geometry_msgs::Pose& initial_pose = getIdentityPose());
+                         const geometry_msgs::Pose& initial_pose = getIdentityPose(),
+                         const std::string& frame = "world");
 
   geometry_msgs::Pose& getPose();
 
@@ -98,6 +99,9 @@ private:
 
   // The short name of this class
   std::string name_ = "imarker_simple";
+
+  // The frame in which the imarker live
+  std::string frame_ = "world";
 
   // A shared node handle
   ros::NodeHandle nh_;
