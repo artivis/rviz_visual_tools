@@ -101,6 +101,13 @@ enum colors
   DEFAULT = 20  // i.e. 'do not change default color'
 };
 
+//struct color
+//{
+//  color(const float r, const float g, const float b) {}
+
+//  const float r, g, b;
+//};
+
 enum scales
 {
   XXXXSMALL = 1,
